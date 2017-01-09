@@ -56,4 +56,9 @@ public class CMSController {
 
         return new ResponseEntity<>(document, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/status", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, String> status() {
+        return Collections.singletonMap("status", "OK");
+    }
 }

@@ -1,6 +1,5 @@
 package pl.net.kopczynski.restdocs;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Rule;
@@ -9,8 +8,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.JUnitRestDocumentation;
-import org.springframework.restdocs.payload.PayloadDocumentation;
-import org.springframework.restdocs.request.RequestDocumentation;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -56,6 +53,18 @@ public class CMSDocumentation {
 	}
 
 	@Test
+	public void responseCodeTest() throws Exception {
+		this.mockMvc.perform(
+			get("/cms/status")
+				.accept(MediaType.APPLICATION_JSON)
+		)
+		.andExpect(status().isOk())
+		.andDo(
+			document("status")
+		);
+	}
+
+	@Test
 	public void retrieveDocumentTest() throws Exception {
 
 		this.mockMvc.perform(get("/cms/document/{id}", 1L))
@@ -85,6 +94,5 @@ public class CMSDocumentation {
 								fieldWithPath("id").description("Created document's id"))
 				));
 	}
-
 
 }
