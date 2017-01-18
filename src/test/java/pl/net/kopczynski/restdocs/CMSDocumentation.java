@@ -26,9 +26,6 @@ import static org.springframework.restdocs.request.RequestDocumentation.paramete
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-/**
- * Created by tkopczynski on 04/01/17.
- */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = RestdocsDemoApplication.class)
@@ -48,8 +45,8 @@ public class CMSDocumentation {
 	@Before
 	public void setUp() {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.context)
-				.apply(documentationConfiguration(this.restDocumentation))
-				.build();
+			.apply(documentationConfiguration(this.restDocumentation))
+			.build();
 	}
 
 	@Test
@@ -66,18 +63,17 @@ public class CMSDocumentation {
 
 	@Test
 	public void retrieveDocumentTest() throws Exception {
-
 		this.mockMvc.perform(get("/cms/document/{id}", 1L))
-				.andExpect(status().isOk())
-				.andDo(document("retrieveDocument",
-						pathParameters(
-								parameterWithName("id").description("Document's id")
-						),
-						responseFields(
-								fieldWithPath("author").description("Document's author"),
-								fieldWithPath("title").description("Document's title")
-						)
-				));
+			.andExpect(status().isOk())
+			.andDo(document("retrieveDocument",
+				pathParameters(
+					parameterWithName("id").description("Document's id")
+				),
+				responseFields(
+					fieldWithPath("author").description("Document's author"),
+					fieldWithPath("title").description("Document's title")
+				)
+			));
 	}
 
 	@Test
@@ -85,14 +81,14 @@ public class CMSDocumentation {
 		Document document = new Document("Jack Tester", "Testing REST APIs");
 
 		this.mockMvc.perform(
-				post("/cms/document")
-						.content(objectMapper.writeValueAsString(document))
-						.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(status().isCreated())
-				.andDo(document("createDocument",
-						responseFields(
-								fieldWithPath("id").description("Created document's id"))
-				));
+			post("/cms/document")
+					.content(objectMapper.writeValueAsString(document))
+					.contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isCreated())
+			.andDo(document("createDocument",
+					responseFields(
+							fieldWithPath("id").description("Created document's id"))
+			));
 	}
 
 }
