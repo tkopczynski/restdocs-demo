@@ -1,16 +1,17 @@
 package pl.net.kopczynski.restdocs.domain;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
+import org.springframework.hateoas.ResourceSupport;
 
 /**
  * Created by Tomasz Kopczynski.
  */
 @AllArgsConstructor
-@Builder
 @Getter
-public class Document {
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
+public class Document extends ResourceSupport {
 
     private final String author;
     private final String title;

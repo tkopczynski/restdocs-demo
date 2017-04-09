@@ -23,18 +23,8 @@ include::{snippets}/retrieveDocument/response-fields.adoc[]
 
 == Create a new document
 
-HTTP request:
+operation::createDocument[]
 
-include::{snippets}/createDocument/http-request.adoc[]
+== System healthcheck
 
-curl request:
-
-include::{snippets}/createDocument/curl-request.adoc[]
-
-HTTP response:
-
-include::{snippets}/createDocument/http-response.adoc[]
-
-Response fields:
-
-include::{snippets}/createDocument/response-fields.adoc[]
+operation::healthcheck[]
